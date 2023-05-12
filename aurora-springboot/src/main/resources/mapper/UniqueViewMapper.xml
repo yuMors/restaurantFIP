@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aurora.mapper.UniqueViewMapper">
+    <!--
+    SELECT DATE_FORMAT(create_time, "%Y-%m-%d") as `day`,
+    DATE_FORMAT(create_time, "%Y-%m-%d") 表示将 create_time 字段中的日期格式化为 YYYY-MM-DD 的形式，并将其作为 day 列返回；
+    views_count 表示直接返回 t_unique_view 表中的 views_count 字段。
+    create_time > #{startTime} 表示 create_time 字段的值大于 startTime 参数的值；
+    create_time <= #{endTime} 表示 create_time 字段的值小于或等于 endTime 参数的值。
+    这样就可以筛选出在指定时间范围内的数据。
+    这一部分是查询语句的排序条件，用于按照 create_time 字段升序排序，即从早到晚。这样可以将查询结果按照日期顺序排列，便于后续的处理和分析。
+    -->
+    <select id="listUniqueViews" resultType="com.aurora.domain.dto.UniqueViewDTO">
+        SELECT DATE_FORMAT(create_time, "%Y-%m-%d") as `day`,
+               views_count
+        FROM `t_unique_view`
+        WHERE create_time &gt; #{startTime}
+          AND create_time &lt;= #{endTime}
+        ORDER BY create_time
+    </select>
+</mapper>

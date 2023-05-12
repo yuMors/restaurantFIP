@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aurora.mapper.MenuMapper">
+    <select id="listMenusByUserInfoId" resultType="com.aurora.domain.entity.Menu">
+        SELECT DISTINCT m.id,
+                        name,
+                        path,
+                        component,
+                        icon,
+                        is_hidden,
+                        parent_id,
+                        order_num
+        FROM t_user_role ur
+                 JOIN t_role_menu rm ON ur.role_id = rm.role_id
+                 JOIN `t_menu` m ON rm.menu_id = m.id
+        WHERE user_id = #{userInfoId}
+    </select>
+    <!--
+    作用是获取指定用户（userInfoId）所拥有的菜单权限信息。具体来说，该查询会执行以下操作：
+    从 t_user_role 表中获取该用户所拥有的角色信息。
+    根据角色信息，在 t_role_menu 表中获取该用户所拥有的菜单权限信息。
+    根据菜单权限信息，在 t_menu 表中获取菜单的具体信息。
+    返回菜单信息，并去除重复的记录（根据菜单的 id 进行去重）。
+    该查询语句使用了 JOIN 操作来关联多张表，并通过 WHERE 子句对查询结果进行过滤。
+    -->
+</mapper>

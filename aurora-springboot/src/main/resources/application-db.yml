@@ -1,0 +1,54 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://8.130.8.73:3306/restaurant02?serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    #    url: jdbc:mysql://127.0.0.1:3306/restaurant?serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: root
+    password: yunroot
+    hikari:
+      minimum-idle: 10
+      idle-timeout: 180000
+      maximum-pool-size: 100
+      auto-commit: true
+      pool-name: MyHikariCP
+      max-lifetime: 60000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+
+  redis:
+    host: 8.130.8.73
+    port: 6379
+    # 设置的密码没有生效 即没有密码 不写密码就行 有的行有的不行
+    password: yunredis
+    database: 1
+    lettuce:
+      pool:
+        min-idle: 10
+        max-idle: 100
+        max-active: 100
+        max-wait: 100
+      shutdown-timeout: 100ms
+  #    database: 2
+#      host: 8.130.8.73
+#      lettuce:
+#        pool:
+#          max-active: 8   #最大连接数据库连接数,设 -1 为没有限制
+#          max-idle: 8     #最大等待连接中的数量,设 0 为没有限制
+#          max-wait: -1ms  #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+#          min-idle: 0     #最小等待连接中的数量,设 0 为没有限制
+#        shutdown-timeout: 100ms
+#      password: yunredis
+
+#  rabbitmq:
+#    host: 8.130.8.73
+#    port: 5672
+#    username: yunRabbitmq
+#    password: yunRabbitmq123456
+#    listener:
+#      simple:
+#        retry:
+#          enabled: true
+#          max-attempts: 3
+#          initial-interval: 3000
+#    virtual-host: /

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aurora.mapper.UserAuthMapper">
+    <resultMap id="UserAdminMap" type="com.aurora.domain.dto.UserAdminDTO">
+        <result property="userInfoId" column="id"/>
+        <result property="avatar" column="avatar"/>
+        <result property="nickname" column="nickname"/>
+        <result property="username" column="username"/>
+        <result property="createTime" column="create_time"/>
+        <result property="lastLoginTime" column="update_time"/>
+        <result property="intro" column="intro"/>
+        <collection property="roles" ofType="com.aurora.domain.dto.UserRoleDTO">
+            <id property="id" column="role_id"/>
+            <result property="roleName" column="role_name"/>
+        </collection>
+    </resultMap>
+    <select id="listUsers" resultMap="UserAdminMap">
+        SELECT
+        ui.id,
+        ui.avatar,
+        ui.nickname,
+        ui.username,
+        r.id as role_id,
+        r.role_name,
+        ui.create_time,
+        ui.update_time,
+        ui.intro
+        FROM
+        (
+        SELECT
+        id,
+        role_id,
+        avatar,
+        nickname,
+        username,
+        create_time,
+        update_time,
+        intro
+        FROM
+        t_user_info
+        <where>
+            <if test="conditionVO.keywords != null">
+                and nickname like concat('%',#{conditionVO.keywords},'%')
+            </if>
+        </where>
+        LIMIT #{current},#{size}
+        ) ui
+        LEFT JOIN t_role r ON ui.role_id = r.id
+    </select>
+
+    <select id="countUser" resultType="java.lang.Integer">
+        SELECT
+        count( 1 )
+        FROM
+        t_user_auth ua
+        LEFT JOIN t_user_info ui ON ua.user_info_id = ui.id
+        <where>
+            <if test="conditionVO.keywords != null">
+                nickname like concat('%',#{conditionVO.keywords},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

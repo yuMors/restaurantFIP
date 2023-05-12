@@ -1,0 +1,57 @@
+server:
+  port: 8080
+
+spring:
+  #激活多个配置文件
+  profiles:
+    #active: db,mail
+    active: db
+  elasticsearch:
+    rest:
+      uris: es的ip:9200
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+search:
+  # 搜索策略
+#  mode: elasticsearch
+  mode: mysql
+
+upload:
+  mode: oss
+  #  oss:
+  #    url: http://Bucket域名/
+  #    endpoint: OSS配置endpoint
+  #    accessKeyId: OSS配置accessKeyId
+  #    accessKeySecret: OSS配置accessKeySecret
+  #    bucketName: OSS配置bucketName
+  oss:
+    # d
+    url: http://rs81ljuv5.hb-bkt.clouddn.com
+    # endpoint: OSS配置endpoint
+    accessKeyId: eSFNm0_nhg4_pcTf0dYcsEVWiS7-aqowg5h9vg7K
+    accessKeySecret: HHCfafB2a1UQ3WYZ_d3CxbSZNT-PlVN7IbYmu9oB
+    # 存储空间的名字
+    bucketName: auroraye
+  minio:
+    url: http://minio的ip:9000/
+    endpoint: http://minio的ip:9000
+    accesskey: 用户名
+    secretKey: 密码
+    bucketName: 桶的名称
+
+website:
+  url: https://前台域名
+
+qq:
+  app-id: QQ APPID
+  check-token-url: https://graph.qq.com/oauth2.0/me?access_token={access_token}
+  user-info-url: https://graph.qq.com/user/get_user_info?openid={openid}&access_token={access_token}&oauth_consumer_key={oauth_consumer_key}
