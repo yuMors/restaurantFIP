@@ -2,7 +2,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://8.130.8.73:3306/restaurant02?serverTimezone=Asia/Shanghai&allowMultiQueries=true
+
     #    url: jdbc:mysql://127.0.0.1:3306/restaurant?serverTimezone=Asia/Shanghai&allowMultiQueries=true
     username: root
     password: yunroot
@@ -17,10 +17,10 @@ spring:
       connection-test-query: SELECT 1
 
   redis:
-    host: 8.130.8.73
+
     port: 6379
     # 设置的密码没有生效 即没有密码 不写密码就行 有的行有的不行
-    password: yunredis
+
     database: 1
     lettuce:
       pool:
